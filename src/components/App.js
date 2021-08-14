@@ -12,7 +12,7 @@ export default function App() {
   const [contacts, setContacts] = useState([]);
 
   // Using the effect Hook
-  useState(() => {
+  useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, contacts);
   }, [contacts]);
 
