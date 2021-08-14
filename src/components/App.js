@@ -8,7 +8,7 @@ export default function App() {
   // declare variable into Local Storage
   const LOCAL_STORAGE_KEY = 'contacts';
 
-  // Using the state Hook 
+  // Using the state Hook
   const [contacts, setContacts] = useState([]);
 
   // Using the effect Hook
