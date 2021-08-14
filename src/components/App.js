@@ -4,6 +4,7 @@ import '../style.css';
 import Header from './Header';
 import AddContact from './AddContact';
 import ListContact from './ListContact';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default function App() {
   // declare variable into Local Storage
@@ -37,9 +38,48 @@ export default function App() {
 
   return (
     <div className="ui container">
-      <Header />
-      <AddContact addContactHandler={addContactHandler} />
-      <ListContact contacts={contacts} getContactId={removeContactHandler} />
+      <Router>
+        <Header />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={props => (
+              <ListContact
+                {...props}
+                contacts={contacts}
+                getContactId={removeContactHandler}
+              />
+            )}
+          />
+          <Route
+            path="/add"
+            render={props => (
+              <AddContact {...props} addContactHandler={addContactHandler} />
+            )}
+          />
+        </Switch>
+      </Router>
     </div>
   );
 }
+//        NOTED        //
+// exact used to solve the problem on route
+// Switch used to switch another route to another
+
+// The way that we can pass props into route
+// 1 way:
+// component={() => (
+//   <ListContact
+//     contacts={contacts}
+//     getContactId={removeContactHandler}
+//   />
+// )}
+// 2 way:
+// render={props => (
+//   <ListContact
+//     {...props}
+//     contacts={contacts}
+//     getContactId={removeContactHandler}
+//   />
+// )}

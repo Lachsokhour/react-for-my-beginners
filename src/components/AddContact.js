@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class AddContact extends React.Component {
   // init for state
@@ -12,6 +13,7 @@ class AddContact extends React.Component {
     // Check all fields are invalid or not
     if (this.state.name === '' || this.state.email === '') {
       alert('All fields are required!');
+      return;
     }
     // add data to list
     this.props.addContactHandler(this.state);
@@ -45,7 +47,10 @@ class AddContact extends React.Component {
             />
           </div>
           <div>
-            <button className="ui button blue">Add Contact</button>
+            <button className="ui button blue">Add</button>
+            <Link to="/">
+              <button className="ui button red">Back</button>
+            </Link>
           </div>
         </form>
       </div>
