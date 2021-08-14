@@ -4,6 +4,7 @@ import '../style.css';
 import Header from './Header';
 import AddContact from './AddContact';
 import ListContact from './ListContact';
+import ContactDetail from './ContactDetail';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default function App() {
@@ -57,6 +58,11 @@ export default function App() {
             render={props => (
               <AddContact {...props} addContactHandler={addContactHandler} />
             )}
+          />
+
+          <Route
+            path="/contact/:id"
+            render={props => <ContactDetail {...props} />}
           />
         </Switch>
       </Router>

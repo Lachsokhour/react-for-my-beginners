@@ -19,7 +19,7 @@ const ListContact = props => {
     );
   });
   return (
-    <div className="main">
+    <div className="ui main">
       <h2>
         Contact List
         <Link to="/add">
