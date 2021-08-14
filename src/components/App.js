@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import uuid from 'react-uuid';
 import '../style.css';
 import Header from './Header';
 import AddContact from './AddContact';
@@ -11,6 +12,18 @@ export default function App() {
   // Using the state Hook
   const [contacts, setContacts] = useState([]);
 
+  // get data from form create contact
+  const addContactHandler = contact => {
+    setContacts([...contacts, { id: uuid(), ...contact }]);
+  };
+
+  const removeContactHandler = id => {
+    const newContactList = contacts.filter(contact => {
+      return contact.id !== id;
+    });
+    setContacts(newContactList);
+  };
+
   // Using the effect Hook
   // Get data from localStorage
   useEffect(() => {
@@ -22,15 +35,11 @@ export default function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
 
-  // get data from form create contact
-  const addContactHandler = contact => {
-    setContacts([...contacts, contact]);
-  };
   return (
     <div className="ui container">
       <Header />
       <AddContact addContactHandler={addContactHandler} />
-      <ListContact contacts={contacts} />
+      <ListContact contacts={contacts} getContactId={removeContactHandler} />
     </div>
   );
 }
