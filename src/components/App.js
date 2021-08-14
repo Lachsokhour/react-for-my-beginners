@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../style.css';
 import Header from './Header';
 import AddContact from './AddContact';
 import ListContact from './ListContact';
 
 export default function App() {
-  const listContacts = [
-    { id: '1', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '2', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '3', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '4', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '5', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '6', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '7', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '8', name: 'sokhour', email: 'sokhour@gmail.com' },
-    { id: '9', name: 'sokhour', email: 'sokhour@gmail.com' }
-  ];
+  // Using Hook
+  const [contacts, setContacts] = useState([]);
+
+  // get data from form create contact
+  const addContactHandler = contact => {
+    setContacts([...contacts, contact]);
+  };
   return (
     <div className="ui container">
       <Header />
-      <AddContact />
-      <ListContact contacts={listContacts} />
+      <AddContact addContactHandler={addContactHandler} />
+      <ListContact contacts={contacts} />
     </div>
   );
 }
