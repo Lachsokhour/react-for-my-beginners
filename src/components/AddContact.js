@@ -1,6 +1,7 @@
 import React from 'react';
 
 class AddContact extends React.Component {
+  // init for state
   state = {
     name: '',
     email: ''

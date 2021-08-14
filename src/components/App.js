@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../style.css';
 import Header from './Header';
 import AddContact from './AddContact';
 import ListContact from './ListContact';
 
 export default function App() {
+  // declare variable into Local Storage
+  const LOCAL_STORAGE_KEY = 'contacts';
+
   // Using Hook
   const [contacts, setContacts] = useState([]);
+
+  // Using Effect to store data
+  useState(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, contacts);
+  }, [contacts]);
 
   // get data from form create contact
   const addContactHandler = contact => {
