@@ -8,9 +8,11 @@ class AddContact extends React.Component {
 
   add = e => {
     e.preventDefault();
+    // Check all fields are invalid or not
     if (this.state.name === '' || this.state.email === '') {
       alert('All fields are required!');
     }
+    // add data to list
     this.props.addContactHandler(this.state);
     this.setState({ name: '', email: '' });
   };
