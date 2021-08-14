@@ -12,8 +12,14 @@ export default function App() {
   const [contacts, setContacts] = useState([]);
 
   // Using the effect Hook
+  // Get data from localStorage
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, contacts);
+    const getContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (getContacts) setContacts(getContacts);
+  }, []);
+  // Set data to localStorage
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);
 
   // get data from form create contact
