@@ -14,7 +14,10 @@ export default function App() {
   const LOCAL_STORAGE_KEY = 'contacts';
 
   // Using the state Hook
+  // Defind state
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   // get data from form create contact
   const addContactHandler = async contact => {
@@ -23,7 +26,6 @@ export default function App() {
       id: uuid(),
       ...contact
     };
-
     const response = await api.post('/contacts', request);
     setContacts([...contacts, response.data]);
   };
@@ -51,6 +53,27 @@ export default function App() {
   const getContacts = async () => {
     const response = await api.get('/contacts');
     return response.data;
+  };
+
+  // Search Handler
+  const searchHandler = searchTerm => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== '') {
+      const newContactList = contacts.filter(contact => {
+        console.log(
+          Object.values(contact)
+            .join(' ')
+            .toLowerCase()
+        );
+        return Object.values(contact)
+          .join(' ')
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    } else {
+      setSearchResults(contacts);
+    }
   };
 
   // Using the effect Hook
@@ -83,8 +106,10 @@ export default function App() {
             render={props => (
               <ListContact
                 {...props}
-                contacts={contacts}
+                contacts={searchTerm.length < 1 ? contacts : searchResults}
                 getContactId={removeContactHandler}
+                term={searchTerm}
+                searchKeyword={searchHandler}
               />
             )}
           />
