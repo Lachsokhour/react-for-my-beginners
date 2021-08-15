@@ -6,7 +6,9 @@ const ContactCard = props => {
   return (
     <div className="item">
       <div className="content">
-        <Link to={`/contact/${id}`}>
+        <Link
+          to={{ pathname: `/contact/${id}`, state: { contact: props.contact } }}
+        >
           <div className="header"> {name}</div>
           <div> {email}</div>
         </Link>
